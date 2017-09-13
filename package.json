@@ -1,0 +1,27 @@
+{
+  "name": "learn-react",
+  "version": "1.0.0",
+  "description": "学习React",
+  "main": "mainpage.js",
+  "dependencies": {
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1"
+  },
+  "devDependencies": {
+    "@types/react": "^16.0.5",
+    "@types/react-dom": "^15.5.4"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/meizilp/learn-react.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/meizilp/learn-react/issues"
+  },
+  "homepage": "https://github.com/meizilp/learn-react#readme"
+}
