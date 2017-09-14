@@ -30,6 +30,21 @@
     * head加入对react代码的引用；
     * body加入一个div，id为tsx文件中指定的名称；
     * body加入对编译后js文件的引用
+    ```html
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Document</title>
+        <script src="node_modules/react/dist/react.js"></script>    
+        <script src="node_modules/react-dom/dist/react-dom.js"></script>
+    </head>
+    <body>
+       <div id="root">Root DIV</div>
+       <script src="mainpage.js"></script>
+    </body>
+    </html>
+    ```
 
 ### 编译执行
 
