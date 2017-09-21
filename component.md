@@ -30,6 +30,7 @@ ReactDOM.render(Hello({ n: "react boy" }), document.getElementById("hello"))    
 ```
 
 ![alt](react developer tools 1.png)
+![image](./react developer tools 1.png)
 
 ## 组件属性
 
