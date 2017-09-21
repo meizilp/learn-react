@@ -1,5 +1,5 @@
-function Hello(props: { name: string }) {
-    return <h1>Hello, {props.name}!</h1>
+function Hello(props: { n: string }) {
+    return <h1>Hello, {props.n}!</h1>
 }
 
 class Welcome extends React.Component {
@@ -8,6 +8,6 @@ class Welcome extends React.Component {
     }
 }
 
-ReactDOM.render(Hello({ name: "react boy" }), document.getElementById("hello"))
-ReactDOM.render(<Hello name="react baby"/>, document.getElementById("hello"))
+ReactDOM.render(Hello({ n: "react boy" }), document.getElementById("hello"))
 ReactDOM.render(<Welcome />, document.getElementById("welcome"))
+ReactDOM.render(<Hello n="react baby"/>, document.getElementById("baby"))
