@@ -1,42 +1,35 @@
 # 组件
 
-组件用于将UI分为一个个独立、可复用的小部件。
+* 组件用于将UI分为一个个独立、可复用的小部件。  
+* 组件可以有属性（约定赋值后在组件内不可修改）和状态（约定可以在组件内部修改）。  
+* 组件的名称首字母要大写（约定）。
 
-## 定义组件
+## 无状态组件
 
-无论使用函数还是类定义，组件名称都需要首字母大写(约定)。  
-
-1. 使用函数定义
+1. 定义
     ```jsx
-    function Hello(props: { n: string }) {
-        return <h1>Hello, {props.n}!</h1>
-    }
+    //无状态，无属性。
+    const Hello = () => <div>Hello</div>
+    //无状态，无属性，带事件处理。
+    const HelloEv = () => <div onClick={() => alert("clicked")}>Hello, click me.</div>  
+    //无状态，有属性。事件处理函数也可以通过属性传递进来。
+    const HelloSb = (props: { name: string }) => <div>Hello, {props.name}</div>
     ```
-1. 使用类定义
-    ```jsx
-    class Welcome extends React.Component {
-        render() {
-            return <h1>Welcom to React!</h1>
-        }
-    }
-    ```
+1. 特性
+    * 组件不会被实例化，性能提升。
+    * 因为不会被实例化，所以不能访问this对象。
+    * 没有生命周期。
+    * 同样的props会得到同样的渲染结果。
+    * 代码简练。
+
+## 有状态组件
 
 ## 渲染组件
 
 ```jsx
-ReactDOM.render(Hello({ n: "react boy" }), document.getElementById("hello"))    //方式1
-ReactDOM.render(<Welcome />, document.getElementById("welcome"))                //方式2
-ReactDOM.render(<Hello n="react baby"/>, document.getElementById("baby"))       //方式3
+ReactDOM.render(<Welcome />, document.getElementById("welcome"))
+ReactDOM.render(<Hello n="react baby"/>, document.getElementById("baby"))       //传递属性值
 ```
-
-在chrome安装react developer tools插件后，按F12在react标签页看到的页面结构：
-
-![](./react.png)
-
-## 组件属性和状态
-
-组件属性是组件创建时通过构造函数的参数传入的值，在组件创建后，值不能再变化（约定）。  
-状态是由组件完全控制的，值可以改变。
 
 ```jsx
 /组件的泛型指明了props、state的类型结构
@@ -56,5 +49,7 @@ class Clock extends React.Component<{ name: string }, { date: Date }> {
     }
 }
 ```
+
+## 事件处理
 
 ## 生命周期
