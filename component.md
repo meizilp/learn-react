@@ -73,20 +73,68 @@
     * 状态对象需要在构造函数中实例化。
     * 有生命周期。
     * 属性可以是高阶组件的状态，属性不能被本组件内修改不意味着属性值在组件创建后不变化了（可以在组件外修改）
+1. 状态要注意的点
+    * 不要直接修改状态，要通过`setState`函数修改。
+    * 状态更新可以被合并，也就是状态对象中的不同字段可以分次设置值，会被合并到一个状态中。
+    * 状态设置是异步的，设置后马上去读有可能读到的仍然是旧状态对象中保存的值。如果不怕值覆盖用直接赋值的方法还好，如果有依赖那么就要注意使用第二种方式来设置状态。
+    ```jsx
+    //假设this.state.count为0，此句执行完仍然为0。此时实际上{count:1}在队列里面存着。
+    this.setState({ count: this.state.count + 1 })  
+    //此句执行完仍然为0。队列里面又增加了一个{count:1}
+    this.setState({ count: this.state.count + 1 })  
+    //此句执行完仍然为0。当React真正更新后，三次的{count:1}最终count等于1。
+    this.setState({ count: this.state.count + 1 })  
+
+    //此句回调函数不会马上执行，当React真正要更新的时候才回调。
+    //执行之后preState中的值会立即生效，所以此时变为2。
+    this.setState( (preState, props) => ({ count: preState.count + 1 }) )
+
+    //这句被回调的时候，此时值变为3。
+    this.setState( (preState, props) => ({ count: preState.count + 1 }) )
+    ```
 
 ## 渲染组件
 
 组件通过`ReactDOM.render()`和页面中的元素关联；在创建组件时，可以传入属性值。
-    ```jsx
-    ReactDOM.render(<Welcome />, document.getElementById("welcome"))
-    ReactDOM.render(<Hello n="react baby"/>, document.getElementById("baby"))       //传递属性值
-    ```
+
+```jsx
+ReactDOM.render(<Welcome />, document.getElementById("welcome"))
+ReactDOM.render(<Hello n="react baby"/>, document.getElementById("baby"))       //传递属性值
+```
 
 ## 生命周期
 
-1. 装载(Mounting)
-    componentWillMount() --> render() --> componentDidMount()
+### 装载(Mounting) -- 组件初次加载到DOM中
 
-1. 更新(Updating)
-1. 卸载(Unmounting)
+组件**初次加载**只会执行这三个函数，别的函数不会执行。
 
+```fc
+componentWillMount() --> render() --> componentDidMount()
+```
+
+1. componentWillMount() 在此函数中，可以调用`setState`设置状态值，`render`会接收到新的状态值。
+1. render() 返回组件，如果返回null，那么组件不会被渲染。
+1. componentDidMount() 初始渲染后执行，子组件的优先于父组件的先执行。
+
+### 更新(Updating) -- 属性或者状态发生改变
+
+**属性和状态的改变**会触发更新。
+
+```fc
+componentWillReceiveProps() --> shouldComponentUpdate()
+    --false-->[Over]  
+    --true-->componentWillUpdate()-->render()-->componentDidUpdate()
+```
+
+1. componentWillReceiveProps(nextProps) **属性值**可能变化时调用，此时可以基于属性更新状态，并且不会引发额外的渲染。
+1. shouldComponentUpdate(nextProps, nextState) 通过比对传入的属性、状态来判断是否需要更新组件，如果不需要返回false，以提高性能。装载以及`forceUpdate`时不会调用此函数。
+1. componentWillUpdate(nextProps, nextState) 组件即将重新渲染。**不能**在此方法中调用`setState`。
+1. componentDidUpdate(prevProps, prevState) 组件完成了更新。
+
+### 卸载(Unmounting) -- 组件从DOM中卸载
+
+组件从DOM中卸载时执行，用于回收资源（比如定时器清除、事件解绑）
+
+```fc
+componentWillUnmount()
+```
