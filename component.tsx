@@ -135,17 +135,17 @@ class CounterButton extends React.Component<{}, CounterButtonState> {
     }
 
     handleClick(event: React.MouseEvent<HTMLElement>) { //处理事件的函数
-        // this.setState((preState, props) => (
-        //     { count: preState.count + 1 }
-        // ))
-        this.count += 1
+        this.setState((preState, props) => (
+             { count: preState.count + 1 }
+        ))
+        //this.count += 1
     }
 
     render() {
         console.log("Render")
         return (
             <div>
-                <CounterCn count={this.count} />
+                <CounterCn count={this.state.count} />
                 <button onClick={this.handleClick}>Increment</button>
             </div>
         )
