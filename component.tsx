@@ -112,3 +112,44 @@ class SwitchButton extends React.Component<BtnPropsType, BtnStateType> {
 
 ReactDOM.render(<SwitchButton open={false} />, document.getElementById("hello"))
 
+//-----------验证高级组件的字段作为低级组件的属性效果---------------
+const CounterCn = (props: { count: number }) => {
+    const cnNum = ["零", "壹", "贰", "叁", "肆", "伍", "陆", "柒", "捌", "玖"]
+    let c = props.count % 10
+    return <div>{cnNum[c]}</div>
+}
+
+interface CounterButtonState {
+    count: number
+}
+
+class CounterButton extends React.Component<{}, CounterButtonState> {
+    count: number
+    constructor() {
+        super()
+        this.state = {
+            count: 0
+        }
+        this.count = 0
+        this.handleClick = this.handleClick.bind(this)
+    }
+
+    handleClick(event: React.MouseEvent<HTMLElement>) { //处理事件的函数
+        // this.setState((preState, props) => (
+        //     { count: preState.count + 1 }
+        // ))
+        this.count += 1
+    }
+
+    render() {
+        console.log("Render")
+        return (
+            <div>
+                <CounterCn count={this.count} />
+                <button onClick={this.handleClick}>Increment</button>
+            </div>
+        )
+    }
+}
+
+ReactDOM.render(<CounterButton />, document.getElementById("clock"))
