@@ -141,3 +141,8 @@ componentWillReceiveProps() --> shouldComponentUpdate()
 ```fc
 componentWillUnmount()
 ```
+
+## 列表
+
+## 表单
+    受控组件会不会刷新两次？

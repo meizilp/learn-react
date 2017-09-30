@@ -116,11 +116,13 @@ ReactDOM.render(<SwitchButton open={false} />, document.getElementById("hello"))
 const CounterCn = (props: { count: number }) => {
     const cnNum = ["零", "壹", "贰", "叁", "肆", "伍", "陆", "柒", "捌", "玖"]
     let c = props.count % 10
+    console.log("through CounterCn")
     return <div>{cnNum[c]}</div>
 }
 
 interface CounterButtonState {
     count: number
+    foo: number
 }
 
 class CounterButton extends React.Component<{}, CounterButtonState> {
@@ -128,7 +130,8 @@ class CounterButton extends React.Component<{}, CounterButtonState> {
     constructor() {
         super()
         this.state = {
-            count: 0
+            count: 0,
+            foo: 1
         }
         this.count = 0
         this.handleClick = this.handleClick.bind(this)
@@ -136,13 +139,16 @@ class CounterButton extends React.Component<{}, CounterButtonState> {
 
     handleClick(event: React.MouseEvent<HTMLElement>) { //处理事件的函数
         this.setState((preState, props) => (
-             { count: preState.count + 1 }
+            { 
+                //count: preState.count + 1,
+                foo:preState.foo + 1
+            }
         ))
         //this.count += 1
     }
 
     render() {
-        console.log("Render")
+        console.log("Render big btn")
         return (
             <div>
                 <CounterCn count={this.state.count} />
@@ -153,3 +159,32 @@ class CounterButton extends React.Component<{}, CounterButtonState> {
 }
 
 ReactDOM.render(<CounterButton />, document.getElementById("clock"))
+
+function ActionLink() {
+    function handleClick(this: any, e: React.MouseEvent<HTMLElement>) {
+        e.preventDefault();
+        console.log('The link was clicked.');
+        //this.count += 1  //这种形式的写法，this是指向null
+    }
+
+    return (
+        <a href="#" onClick={handleClick}>
+            Click me
+      </a>
+    );
+}
+
+//ReactDOM.render(<ActionLink />, document.getElementById("clock"))
+
+function NumberList(props: { numbers: number[] }) {
+    const numbers = props.numbers;
+    const listItems = numbers.map((number) =>
+        <li key={number.toString()}>{number}</li>
+    );
+    return (
+        <ul>{listItems}</ul>
+    );
+}
+
+const numbers = [1, 2, 3, 4, 5];
+//ReactDOM.render( <NumberList numbers={numbers} />, document.getElementById('clock'));
