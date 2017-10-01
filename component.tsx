@@ -139,9 +139,9 @@ class CounterButton extends React.Component<{}, CounterButtonState> {
 
     handleClick(event: React.MouseEvent<HTMLElement>) { //处理事件的函数
         this.setState((preState, props) => (
-            { 
+            {
                 //count: preState.count + 1,
-                foo:preState.foo + 1
+                foo: preState.foo + 1
             }
         ))
         //this.count += 1
@@ -158,7 +158,7 @@ class CounterButton extends React.Component<{}, CounterButtonState> {
     }
 }
 
-ReactDOM.render(<CounterButton />, document.getElementById("clock"))
+//ReactDOM.render(<CounterButton />, document.getElementById("clock"))
 
 function ActionLink() {
     function handleClick(this: any, e: React.MouseEvent<HTMLElement>) {
@@ -188,3 +188,6 @@ function NumberList(props: { numbers: number[] }) {
 
 const numbers = [1, 2, 3, 4, 5];
 //ReactDOM.render( <NumberList numbers={numbers} />, document.getElementById('clock'));
+
+const DvString = () => "Haha String"
+//ReactDOM.render(<DvString />, document.getElementById('clock'));
