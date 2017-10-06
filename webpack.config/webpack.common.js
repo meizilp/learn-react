@@ -33,10 +33,11 @@ module.exports = {
   module: {
     rules: [  //ts以及tsx文件通过一个loader处理；js文件通过sourcemap转换处理
       { test: /\.tsx?$/, use: 'awesome-typescript-loader', exclude: /node_modules/ },
-      { test: /\.js$/, use: 'source-map-loader', exclude: /node_modules/ }
+      { test: /\.js$/, use: 'source-map-loader', exclude: /node_modules/ },
+      { test: /\.css$/, use: ['style-loader', 'css-loader'] }
     ]
   },
   resolve: {  //库的解析扩展名增加tsx以及ts类型的文件
-    extensions: ['.tsx', '.ts', '.js', '.jsx']
+    extensions: ['.tsx', '.ts', '.js', '.jsx', '.web.js']
   }
 };

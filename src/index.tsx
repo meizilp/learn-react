@@ -157,4 +157,8 @@ class NameForm extends React.Component<any, { value: string}> {
     }
 }
 
-ReactDOM.render(<NameForm />, document.getElementById('form'))
+//ReactDOM.render(<NameForm />, document.getElementById('form'))
+
+import {Tooltip} from 'antd'
+import 'antd/dist/antd.css'
+ReactDOM.render(<Tooltip title='primary'><span>Wahaha</span></Tooltip>, document.getElementById('form'))
