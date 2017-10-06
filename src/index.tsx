@@ -102,7 +102,7 @@ function NumberList(props: { numbers: number[] }) {
 
 //渲染Demo组件到目标div
 const numbers = [1, 2, 3, 4, 5];
-let multi_coms: any[] = [<Hello />, <HelloEv />]    //用于多组件渲染的标签数组
+let multi_coms: any[] = [<Hello key='1' />, <HelloEv key='2' />]    //用于多组件渲染的标签数组
 ReactDOM.render(
     <div>
         <Hello />
@@ -113,3 +113,48 @@ ReactDOM.render(
         {multi_coms}
     </div>, document.getElementById('component')
 )
+
+//----------------表单-------------------
+class NameForm extends React.Component<any, { value: string}> {
+    constructor(props: any) {
+        super(props);
+        this.state = { value: 'default input' };
+
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleRefreshValue = this.handleRefreshValue.bind(this);
+    }
+
+    handleChange(event: React.ChangeEvent<HTMLInputElement>) {
+        this.setState({ value: event.target.value });
+    }
+
+    handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+        alert('A name was submitted: ' + this.state.value);
+        event.preventDefault();
+    }
+
+    handleRefreshValue(event: React.MouseEvent<HTMLButtonElement>) {
+        this.setState({ value: Date.now().toString() });
+    }
+
+    shouldComponentUpdate(np: any, ns: { value: string }) {
+        return true
+    }
+
+    render() {
+        return (
+            <div>
+                <form onSubmit={this.handleSubmit}>
+                    <label>
+                        Name: <input type="text" value={this.state.value} onChange={this.handleChange} />
+                    </label>
+                    <input type="submit" value="Submit" />
+                </form>
+                <button onClick={this.handleRefreshValue}>set input value</button>
+            </div>
+        );
+    }
+}
+
+ReactDOM.render(<NameForm />, document.getElementById('form'))

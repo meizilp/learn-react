@@ -166,4 +166,63 @@ function NumberList(props) {
 ```
 
 ## 表单
-    受控组件会不会刷新两次？
+
+HTML表单元素本身是有状态的，React中通过受控组件技术提供了更便捷的操作。  
+在受控组件中，React组件的状态对象保存表单元素的值(供Submit时获取)；并通过事件句柄处理表单的事件，更新状态对象中保存的值。
+如果外界修改状态对象的值，那么通过受控组件的value属性，可以把新值设置到受控组件上面去。
+
+```tsx
+class NameForm extends React.Component<any, { value: string }> {
+    constructor(props: any) {
+        super(props);
+        this.state = { value: '' }; //状态对象保存input的值
+
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleRefreshValue = this.handleRefreshValue.bind(this);
+    }
+
+    handleChange(event: React.ChangeEvent<HTMLInputElement>) {
+        this.setState({ value: event.target.value });   //input元素接收到新的输入时，把新的值保存到状态对象中
+        //通过断点调试，只要input输入新值，就会触发这个回调
+        //并且紧接着触发判断是否更新，然后再触发render函数。虽然新值和input中显示的已经一样了，render仍然还是会触发。
+        //至于React是不是还会重新触发整整的HTML渲染就没深究了。
+    }
+
+    handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+        alert('A name was submitted: ' + this.state.value); //当submit时获取状态对象中保存的值
+        event.preventDefault();
+    }
+
+    handleRefreshValue(event: React.MouseEvent<HTMLButtonElement>) {
+        this.setState({ value: Date.now().toString() });    //直接修改状态中保存的值
+    }
+
+    shouldComponentUpdate(np: any, ns: { value: string }) {
+        return true //判断是否需要更新组件。只要调用了setState，就会触发
+        //change触发时，旧的值尚未更新，和新的值不一样，确实需要update。
+    }
+
+    render() {
+        return (
+            <div>
+                <form onSubmit={this.handleSubmit}>
+                    <label>
+                        /* 如果没有value属性，不影响获取input输入的值。但是想通过外界修改input的值或设置input默认值就无法实现了 */
+                        Name: <input type="text" value={this.state.value} onChange={this.handleChange} />
+                    </label>
+                    <input type="submit" value="Submit" />
+                </form>
+                <button onClick={this.handleRefreshValue}>set input value</button>
+            </div>
+        );
+    }
+}
+
+ReactDOM.render(<NameForm />, document.getElementById('form'))
+```
+
+textarea经过React封装后和input类似。  
+select标签也类似，不过select标签的value只能是其选项标签(option标签)的value值。  
+
+一个表单中包含多个输入元素时，每个元素增加一个name属性，根据name来决定如何处理，或者用不同的句柄来处理change事件。
