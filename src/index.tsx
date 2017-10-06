@@ -99,9 +99,10 @@ function NumberList(props: { numbers: number[] }) {
         <ul>{listItems}</ul>
     );
 }
-const numbers = [1, 2, 3, 4, 5];
 
 //渲染Demo组件到目标div
+const numbers = [1, 2, 3, 4, 5];
+let multi_coms: any[] = [<Hello />, <HelloEv />]    //用于多组件渲染的标签数组
 ReactDOM.render(
     <div>
         <Hello />
@@ -109,5 +110,6 @@ ReactDOM.render(
         <HelloSb name="all" />
         <SwitchButton open={false} />
         <NumberList numbers={numbers} />
+        {multi_coms}
     </div>, document.getElementById('component')
 )
