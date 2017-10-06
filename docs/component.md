@@ -147,5 +147,23 @@ componentWillUnmount()
 
 ## 列表
 
+使用数组保存列表项，然后JSX中用大括号直接引用，就可以将所有列表项渲染出来。  
+下面这个组件就是把数字映射成列表项，从而通过数组形成了一个列表项的数组。  
+注意key属性，是为了提高react的效率，每个条目的key都应该是本级元素唯一且稳定不变的。key不一定是跟着列表项一起生成的，是在数组中才有效，简单的记法是在map的回调中写。
+
+```js
+function NumberList(props) {
+  const numbers = props.numbers;
+  const listItems = numbers.map((number) =>
+    <li key={number.toString()}>
+      {number}
+    </li>
+  );
+  return (
+    <ul>{listItems}</ul>
+  );
+}
+```
+
 ## 表单
     受控组件会不会刷新两次？
