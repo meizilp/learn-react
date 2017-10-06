@@ -5,7 +5,7 @@ const index_html_options = {  //生成index.html的配置
   inject: false,
   template: require('html-webpack-template'),   //生成页面时通过template生成
 
-  appMountId: 'main',   //在页面中生成一个id为main的div
+  appMountIds: ['main', 'component'],   //在页面中生成两个div
   lang: 'zh-CN',    //指定页面语言
 
   title: 'My react project',  //指定页面title

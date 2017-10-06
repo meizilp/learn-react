@@ -56,7 +56,7 @@ webpack支持通过`--config`指定配置文件名称。为了便于生产环境
       inject: false,
       template: require('html-webpack-template'),   //生成页面时通过template生成
 
-      appMountId: 'main',   //在页面中生成一个id为main的div
+      appMountIds: ['main', 'component'],   //在页面中生成两个div
       lang: 'zh-CN',    //指定页面语言
 
       title: 'My react project',  //指定页面title
@@ -187,3 +187,7 @@ webpack支持通过`--config`指定配置文件名称。为了便于生产环境
 * 类型转换要用as操作符；
 * 以<开头的作为HTML标签解析，以{开头的作为代码解析(约定)；
 * 用双引号来指定**字符串**或者用花括号嵌入**表达式**作为属性值。
+
+## 更多
+
+[组件](./docs/component.md)
