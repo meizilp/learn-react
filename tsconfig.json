@@ -1,9 +1,9 @@
 {
   "compilerOptions": {
-    "target": "es5",
-    "module": "es2015",
-    "jsx": "react",
-    "sourceMap": true,
-    "strict": true
+    "target": "es5",    /*直接ts就输出为es5，免去还要再通过babel转换*/
+    "module": "es2015", /*webpack支持import形式的模块，模块仍保留为es2015标准*/
+    "jsx": "react",     /*tsx文件直接输出为js文件*/
+    "sourceMap": true,  /*便于调试，输出ts和js之间的映射关系*/
+    "strict": true      /*变量等严格检测*/
   }
 }
