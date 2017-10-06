@@ -61,8 +61,8 @@
         //事件指定句柄，事件名称是驼峰命名，事件函数用花括号包围；通过state访问状态。
         render() {
             return (
-                <label onClick={this.handleClick}>it's {String(this.state.open)}
-                    <input type="checkbox" checked={this.state.open} />
+                <label>it's {String(this.state.open)}
+                    <input type="checkbox" checked={this.state.open} onClick={this.handleClick} />
                 </label>
             )
         }
@@ -77,7 +77,7 @@
     * 属性可以是高阶组件的状态，属性不能被本组件内修改不意味着属性值在组件创建后不变化了（可以在组件外修改）
 1. 状态要注意的点
     * 不要直接修改状态，要通过`setState`函数修改。
-    * 状态对象中的字段只包含`render`函数中用的字段或者会传递给子组件作为属性的字段，其他的字段直接定义在类中。(经验证，如果子组件的属性用到的高阶组件的字段，高阶组件不通过`setState`去修改的话，子组件是无法察觉值的变更的，看上去就是不响应变化了。)
+    * 状态对象中的字段**只包含`render`函数中用的字段或者会传递给子组件作为属性的字段**，其他的字段直接定义在类中。(经验证，如果子组件的属性用到的高阶组件的字段，高阶组件不通过`setState`去修改的话，子组件是无法察觉值的变更的，看上去就是不响应变化了。)
     * 状态更新可以被合并，也就是状态对象中的不同字段可以分次设置值，会被合并到一个状态中。
     * 状态设置是异步的，设置后马上去读有可能读到的仍然是旧状态对象中保存的值。如果不怕值覆盖用直接赋值的方法还好，如果有依赖那么就要注意使用第二种方式来设置状态。
     ```jsx
@@ -98,11 +98,14 @@
 
 ## 渲染组件
 
-组件通过`ReactDOM.render()`和页面中的元素关联；在创建组件时，可以传入属性值。
+组件通过`ReactDOM.render()`和页面中的元素关联；在创建组件时，可以传入属性值。  
+多个组件可以放到一个数组中，然后在JSX中通过大括号引用，就可以一次渲染多个组件，多用于渲染列表中的元素。
 
 ```jsx
 ReactDOM.render(<Welcome />, document.getElementById("welcome"))
 ReactDOM.render(<Hello n="react baby"/>, document.getElementById("baby"))       //传递属性值
+ReactDOM.render(<div>{multi_coms}</div>, document.getElementById('component')   //多组件渲染
+)
 ```
 
 ## 生命周期
@@ -115,9 +118,9 @@ ReactDOM.render(<Hello n="react baby"/>, document.getElementById("baby"))       
 componentWillMount() --> render() --> componentDidMount()
 ```
 
-1. componentWillMount() 在此函数中，可以调用`setState`设置状态值，`render`会接收到新的状态值。
+1. **componentWillMount()** 在此函数中，可以调用`setState`设置状态值，`render`会接收到新的状态值。
 1. render() 返回组件，如果返回null，那么组件不会被渲染。
-1. componentDidMount() 初始渲染后执行，子组件的优先于父组件的先执行。
+1. **componentDidMount()** 初始渲染后执行，子组件的优先于父组件的先执行。
 
 ### 更新(Updating) -- 属性或者状态发生改变
 
@@ -129,7 +132,7 @@ componentWillReceiveProps() --> shouldComponentUpdate()
     --true-->componentWillUpdate()-->render()-->componentDidUpdate()
 ```
 
-1. componentWillReceiveProps(nextProps) **属性值**可能变化时调用，此时可以基于属性更新状态，并且不会引发额外的渲染。
+1. **componentWillReceiveProps(nextProps)** **属性值**可能变化时调用，此时**可以基于属性更新状态，并且不会引发额外的渲染**。
 1. shouldComponentUpdate(nextProps, nextState) 通过比对传入的属性、状态来判断是否需要更新组件，如果不需要返回false，以提高性能。装载以及`forceUpdate`时不会调用此函数。
 1. componentWillUpdate(nextProps, nextState) 组件即将重新渲染。**不能**在此方法中调用`setState`。
 1. componentDidUpdate(prevProps, prevState) 组件完成了更新。
