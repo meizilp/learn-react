@@ -24,7 +24,7 @@ module.exports = {
             name: '[name]',
         }),
         new webpack.optimize.UglifyJsPlugin({
-            sourceMap: true,
+            sourceMap: false,
         }),
         new webpack.optimize.CommonsChunkPlugin({
             name: 'reacts',

@@ -40,14 +40,15 @@ module.exports = {
     }),  //生成index.html
     new AddAssetHtmlPlugin({
       filepath: path.resolve(__dirname, '../dll/*.dll.js'),
+      includeSourcemap: false
     }),
     new webpack.optimize.CommonsChunkPlugin({ //提取重复的webpack脚手架文件
       name: 'runtime',  //使用一个entry中没有的名称
       minChunks: Infinity
     }),
     new webpack.DllReferencePlugin({
-       context: '.',
-       manifest: require("../dll/antd.manifest.json"),
+      context: '.',
+      manifest: require("../dll/antd.manifest.json"),
     }),
     new webpack.DllReferencePlugin({
       context: '.',
