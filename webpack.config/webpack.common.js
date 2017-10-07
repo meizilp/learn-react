@@ -45,10 +45,10 @@ module.exports = {
       name: 'runtime',  //使用一个entry中没有的名称
       minChunks: Infinity
     }),
-    // new webpack.DllReferencePlugin({
-    //   context: '.',
-    //   manifest: require("../dll/antd.manifest.json"),
-    // }),
+    new webpack.DllReferencePlugin({
+       context: '.',
+       manifest: require("../dll/antd.manifest.json"),
+    }),
     new webpack.DllReferencePlugin({
       context: '.',
       manifest: require("../dll/reacts.manifest.json"),
