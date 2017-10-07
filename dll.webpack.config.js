@@ -5,7 +5,7 @@ const dll_path = 'dll'
 
 module.exports = {
     entry: {
-        reacts: ['react', 'react-dom','antd/lib/tooltip'],
+        reacts: ['react', 'react-dom', 'antd/lib/tooltip'],
         //antd: ['antd/lib/tooltip']
     },
     output: {
@@ -15,6 +15,11 @@ module.exports = {
     },
     devtool: 'source-map',
     plugins: [
+        new webpack.DefinePlugin({
+            'process.env': {
+                'NODE_ENV': JSON.stringify('production')  //通过环境变量定义生产环境
+            }
+        }),
         new webpack.DllPlugin({
             path: path.join(__dirname, dll_path, '[name].manifest.json'),
             name: '[name]',

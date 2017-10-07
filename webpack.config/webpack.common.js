@@ -3,6 +3,7 @@ const webpack = require('webpack'); //引入webpack，以使用内置插件
 const HtmlWebpackPlugin = require('html-webpack-plugin'); //引入生成页面插件
 const ExtractTextPlugin = require("extract-text-webpack-plugin")
 
+const AddAssetHtmlPlugin = require('add-asset-html-webpack-plugin')
 
 const index_html_options = {  //生成index.html的配置
   minify: {
@@ -37,6 +38,9 @@ module.exports = {
         preserveLineBreaks: true,
       },
     }),  //生成index.html
+    new AddAssetHtmlPlugin({
+      filepath: path.resolve(__dirname, '../dll/*.dll.js'),
+    }),
     new webpack.optimize.CommonsChunkPlugin({ //提取重复的webpack脚手架文件
       name: 'runtime',  //使用一个entry中没有的名称
       minChunks: Infinity
