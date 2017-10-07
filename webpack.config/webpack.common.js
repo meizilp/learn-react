@@ -1,3 +1,4 @@
+const path = require('path');
 const webpack = require('webpack'); //引入webpack，以使用内置插件
 const HtmlWebpackPlugin = require('html-webpack-plugin'); //引入生成页面插件
 const ExtractTextPlugin = require("extract-text-webpack-plugin")
@@ -22,7 +23,7 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin(index_html_options),  //生成index.html
     new webpack.optimize.CommonsChunkPlugin({ //提取重复的第三方库
-      names:['antd', 'reacts'], //在entry中对应的条目名称，注意顺序要和enry中的正好相反才能正确分离
+      names: ['antd', 'reacts'], //在entry中对应的条目名称，注意顺序要和enry中的正好相反才能正确分离
       minChunks: Infinity
     }),
     new webpack.optimize.CommonsChunkPlugin({ //提取重复的webpack脚手架文件
@@ -38,6 +39,6 @@ module.exports = {
     ]
   },
   resolve: {  //库的解析扩展名增加tsx以及ts类型的文件
-    extensions: ['.tsx', '.ts', '.js', '.jsx', '.web.js']
+    extensions: ['.tsx', '.ts', '.js', '.jsx']
   }
 };
