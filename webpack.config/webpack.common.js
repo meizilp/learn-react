@@ -6,7 +6,7 @@ const index_html_options = {  //生成index.html的配置
   inject: false,
   template: require('html-webpack-template'),   //生成页面时通过template生成
 
-  appMountIds: ['main', 'component', 'form'],   //在页面中生成div
+  appMountIds: ['main', 'component', 'form', 'simple'],   //在页面中生成div
   lang: 'zh-CN',    //指定页面语言
 
   title: 'My react project',  //指定页面title
@@ -17,15 +17,14 @@ module.exports = {
   entry: {
     app: './src/index.tsx',   //程序入口文件
     vendor: ['react', 'react-dom'],  //引用的第三方库
+    antd: ['antd/lib/tooltip']
   },
   plugins: [
     new ExtractTextPlugin("[name].[chunkhash].css"),  //提取CSS
     new HtmlWebpackPlugin(index_html_options),  //生成index.html
     new webpack.optimize.CommonsChunkPlugin({ //提取重复的第三方库
-      name: 'vendor', //在entry中对应的条目名称
-      minChunks: function (module) {
-        return module.context && module.context.indexOf("node_modules") !== -1;
-      }
+      names:['antd', 'vendor'], //在entry中对应的条目名称，注意顺序要和enry中的正好相反才能正确分离
+      minChunks: Infinity
     }),
     new webpack.optimize.CommonsChunkPlugin({ //提取重复的webpack脚手架文件
       name: 'runtime',  //使用一个entry中没有的名称
