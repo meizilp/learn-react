@@ -16,14 +16,13 @@ const index_html_options = {  //生成index.html的配置
 module.exports = {
   entry: {
     app: './src/index.tsx',   //程序入口文件
-    vendor: ['react', 'react-dom'],  //引用的第三方库
+    reacts: ['react', 'react-dom'],  //引用的第三方库
     antd: ['antd/lib/tooltip']
   },
   plugins: [
-    new ExtractTextPlugin("[name].[chunkhash].css"),  //提取CSS
     new HtmlWebpackPlugin(index_html_options),  //生成index.html
     new webpack.optimize.CommonsChunkPlugin({ //提取重复的第三方库
-      names:['antd', 'vendor'], //在entry中对应的条目名称，注意顺序要和enry中的正好相反才能正确分离
+      names:['antd', 'reacts'], //在entry中对应的条目名称，注意顺序要和enry中的正好相反才能正确分离
       minChunks: Infinity
     }),
     new webpack.optimize.CommonsChunkPlugin({ //提取重复的webpack脚手架文件

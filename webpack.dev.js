@@ -2,6 +2,7 @@ const path = require('path');
 const merge = require('webpack-merge'); //引入merge工具
 const common = require('./webpack.config/webpack.common.js'); //引入共同配置
 
+const ExtractTextPlugin = require("extract-text-webpack-plugin")
 const CleanWebpackPlugin = require('clean-webpack-plugin'); //引入清除插件
 
 const output_path = './dist/debug'  //定义输出目录
@@ -17,5 +18,6 @@ module.exports = merge(common, {  //合并配置后exports
   },
   plugins: [
     new CleanWebpackPlugin([output_path]),  //加载清理插件。插件会清理输出目录。
+    new ExtractTextPlugin("[name].css"),  //提取CSS
   ]
 });
