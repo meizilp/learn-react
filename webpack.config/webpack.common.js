@@ -5,23 +5,6 @@ const ExtractTextPlugin = require("extract-text-webpack-plugin")
 
 const AddAssetHtmlPlugin = require('add-asset-html-webpack-plugin')
 
-const index_html_options = {  //生成index.html的配置
-  minify: {
-    collapseWhitespace: true,
-    preserveLineBreaks: true,
-  },
-  inject: false,
-  template: require('html-webpack-template'),   //生成页面时通过template生成
-  cache: true,
-
-  //template配置
-  appMountIds: ['main', 'component', 'form', 'simple'],   //在页面中生成div
-  lang: 'zh-CN',    //指定页面语言
-
-  title: 'My react project',  //指定页面title
-  filename: "index.html"  //指定输出的html页面文件名
-}
-
 module.exports = {
   entry: {
     app: './src/index.tsx',   //程序入口文件
