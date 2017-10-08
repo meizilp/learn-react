@@ -23,11 +23,14 @@ module.exports = {
             path: path.join(__dirname, dll_path, '[name].manifest.json'),
             name: '[name]',
         }),
-        new webpack.optimize.UglifyJsPlugin({
-            sourceMap: false,
-        }),
+        // new webpack.optimize.UglifyJsPlugin({
+        //     sourceMap: false,
+        // }),
         new webpack.optimize.CommonsChunkPlugin({
             name: 'reacts',
+        }),
+        new webpack.optimize.CommonsChunkPlugin({
+            name: 'commons',
         }),
     ]
 };
