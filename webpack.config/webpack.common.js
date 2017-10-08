@@ -10,7 +10,7 @@ module.exports = {
     app: './src/index.tsx',   //程序入口文件
   },
   plugins: [
-    //new HtmlWebpackPlugin(index_html_options),  //生成index.html
+    //生成index.html
     new HtmlWebpackPlugin({
       title: 'webpack performance',
       filename: 'index.html',
@@ -20,22 +20,35 @@ module.exports = {
         collapseWhitespace: true,
         preserveLineBreaks: true,
       },
-    }),  //生成index.html
+    }),  
+    //将dll目录的所有库文件复制到输出目录，并加入index.html
     new AddAssetHtmlPlugin({
-      filepath: path.resolve(__dirname, '../dll/*.dll.js'),
+      filepath: path.resolve(__dirname, '../dll/!(dll-runtime)*.dll.js'),
       includeSourcemap: false
     }),
-    new webpack.optimize.CommonsChunkPlugin({ //提取重复的webpack脚手架文件
-      name: 'runtime',  //使用一个entry中没有的名称
-      minChunks: Infinity
+    new AddAssetHtmlPlugin({
+      filepath: path.resolve(__dirname, '../dll/dll-runtime*.dll.js'),
+      includeSourcemap: false
     }),
+    //提取重复的webpack脚手架文件
+    new webpack.optimize.CommonsChunkPlugin({ 
+      name: 'runtime',      //使用一个entry中没有的名称
+      minChunks: Infinity 
+    }),
+    //加载预先编译好的dll库公共代码
     new webpack.DllReferencePlugin({
       context: '.',
-      manifest: require("../dll/antd.manifest.json"),
+      manifest: require("../dll/dll-runtime.manifest.json"),
     }),
+    //加载预先编译好的react库
     new webpack.DllReferencePlugin({
       context: '.',
       manifest: require("../dll/reacts.manifest.json"),
+    }),
+    //加载预先编译好的antd库
+    new webpack.DllReferencePlugin({
+      context: '.',
+      manifest: require("../dll/antd.manifest.json"),
     }),
   ],
 
