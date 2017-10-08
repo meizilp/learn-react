@@ -162,7 +162,7 @@ class NameForm extends React.Component<any, { value: string}> {
 import 'antd/lib/style/index.css'
 import Tooltip from 'antd/lib/tooltip'
 import 'antd/lib/tooltip/style/index.css'
-ReactDOM.render(<Tooltip title='primary'><span>Wahaha</span></Tooltip>, document.getElementById('form'))
+ReactDOM.render(<Tooltip title='good luck'><span>what will be happen?</span></Tooltip>, document.getElementById('form'))
 
 import Biu from './simple_func'
 ReactDOM.render(<Biu />, document.getElementById('simple'))
