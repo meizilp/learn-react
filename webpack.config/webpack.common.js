@@ -20,6 +20,7 @@ module.exports = {
         collapseWhitespace: true,
         preserveLineBreaks: true,
       },
+      //还可以通过chunks或者excludechunks来调整注入哪些文件
     }),  
     //使用AddAssetHtmlPlugin插件把动态生成的js文件url插入html中
     //可以多次调用此插件，这样可以控制文件插入的顺序。不过插入html后的顺序正好和此处顺序相反。
