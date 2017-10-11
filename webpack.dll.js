@@ -16,7 +16,7 @@ module.exports = {
     output: {
         path: path.resolve(__dirname, dll_path),    //输出到当前目录/dll
         filename: '[name].[chunkhash].dll.js',      //使用chunkhash将文件名和文件内容关联
-        library: '[name]'       //库的名称
+        library: '[name]_[chunkhash]'       //库的名称，引入hash值主要避免库名称冲突
     },
     plugins: [
         new CleanWebpackPlugin([dll_path]),     //清理输出目录
@@ -28,7 +28,7 @@ module.exports = {
         }),
         new webpack.DllPlugin({     //动态库配置
             path: path.join(__dirname, dll_path, '[name].manifest.json'),
-            name: '[name]',         //动态库的名称，要和output中的一致
+            name: '[name]_[chunkhash]',         //动态库的名称，要和output中的一致
         }),
         new webpack.optimize.UglifyJsPlugin({
             sourceMap: false,       //优化输出
