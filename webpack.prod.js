@@ -31,7 +31,8 @@ module.exports = merge(common, {
     })
   ],
   output: {
-    filename: '[name].[chunkhash].js',  //定义输出文件名，加上了hash值。
+    //定义输出文件名，用chunkhash文件内容不变则值不变。hash每次都是变的，相当于是build id
+    filename: '[name].[chunkhash].js', 
     path: path.resolve(__dirname, output_path)  //定义输出目录
   },
 });
