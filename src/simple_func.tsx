@@ -11,8 +11,8 @@ import Col from 'antd/lib/Col'
 
 const Biu = () =>
     (<div>
-        <Row>
-            <Col span={6}>
+        <Row type='flex' justify='center'>
+            <Col span={3}>
                 <Button disabled={true}>default</Button>
             </Col>
             <Col span={3}>
@@ -21,8 +21,11 @@ const Biu = () =>
             <Col span={6}>
                 <Button type='dashed' icon='question-circle'>Dashed</Button>
             </Col>
-            <Col span={9}>
+            <Col span={7}>
                 <Button type='danger' size='large'>Danger</Button>
+            </Col>
+            <Col span={2}>
+                world
             </Col>
         </Row>
     </div>)
