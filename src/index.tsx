@@ -162,7 +162,6 @@ class NameForm extends React.Component<any, { value: string}> {
 import 'antd/lib/style/index.css'
 import Tooltip from 'antd/lib/tooltip'
 import 'antd/lib/tooltip/style/index.css'
-import { Row, Col } from 'antd'
 
 ReactDOM.render(<Tooltip title='good luck'><span>what will be happen?</span></Tooltip>, document.getElementById('form'))
 

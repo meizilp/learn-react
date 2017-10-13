@@ -11,7 +11,7 @@ const dll_path = 'dll'
 module.exports = {
     entry: {
         reacts: ['react', 'react-dom'],                 //react库
-        antd: ['antd/lib/tooltip', 'antd/lib/button']   //antd库
+        antd: ['antd/lib/tooltip', 'antd/lib/button', 'antd/lib/grid', 'antd/lib/row', 'antd/lib/col']   //antd库
     },
     output: {
         path: path.resolve(__dirname, dll_path),    //输出到当前目录/dll
