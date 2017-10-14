@@ -9,17 +9,30 @@ import 'antd/lib/grid/style/index.css'
 import Row from 'antd/lib/Row'
 import Col from 'antd/lib/Col'
 
+const div_style = {
+    'background-color': '#0f0',
+    'display': 'flex',
+    'height': '100px',
+    'justify-content':'center',
+    'align-items': 'center',
+}
+
+const button_style = {
+    'width' : '50%',
+    'height': '80%'
+}
+
 const Biu = () =>
     (<div>
         <Row type='flex' justify='center'>
             <Col span={3}>
-                <Button disabled={true}>default</Button>
+                <Button disabled={true} >default</Button>
             </Col>
             <Col span={3}>
-                <Button type='primary' shape='circle'>Primary</Button>
+                <Button type='primary'>Primary</Button>
             </Col>
-            <Col span={6}>
-                <Button type='dashed' icon='question-circle'>Dashed</Button>
+            <Col span={6} style={div_style}>
+                <Button type='dashed' icon='question-circle' style={button_style}>Dashed</Button>
             </Col>
             <Col span={7}>
                 <Button type='danger' size='large'>Danger</Button>
