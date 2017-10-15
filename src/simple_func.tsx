@@ -24,7 +24,7 @@ const button_style = {
 
 const Biu = () =>
     (<div>
-        <Row type='flex' justify='center'>
+        <Row type='flex' justify='center' align='bottom'>
             <Col span={3}>
                 <Button disabled={true} >default</Button>
             </Col>
